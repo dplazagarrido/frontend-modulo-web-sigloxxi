@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-export default class ListEntradas extends Component{
+export default class ListPostres extends Component{
     
     constructor(props){
         super(props)
@@ -17,7 +17,7 @@ export default class ListEntradas extends Component{
     }
 
     refreshPlato(){
-        axios.get('http://localhost:8083/sigloxxi/plato/entrada')
+        axios.get('http://localhost:8083/sigloxxi/plato/postre')
         .then(
             response => {
                 console.log(response);
@@ -29,7 +29,7 @@ export default class ListEntradas extends Component{
     render(){
         return(
             <div className="container">
-                <h2>Platos de Entrada</h2>
+                <h2>Postres</h2>
                     <div className='container'>
                         <table className="table">
                             <thead>
