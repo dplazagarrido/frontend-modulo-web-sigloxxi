@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 const validate = values => {
     const errors =  {}
     if(!values.nombre){
-         errors.nombre = 'Este campo es obligatorio'
+        errors.nombre = 'Este campo es obligatorio'
     }
     if(!values.ap_paterno){
         errors.ap_paterno = 'Este campo es obligatorio'
@@ -43,28 +43,31 @@ export default class ClienteForm extends Component{
     }
 
     render(){
-        console.log(this.state);
         const{ errors } = this.state
         return(
             <form onSubmit={this.handleSubmit}>
                 <label>Nombre:</label>
-                <input name="nombre" onChange={this.handleChange}/>
+                <input name="nombre" onChange={this.handleChange} pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"/>
                 {errors.nombre && <p>{errors.nombre}</p>}
                 <br/>
                 <label>Apellido Paterno:</label>
-                <input name="ap_paterno" onChange={this.handleChange}/>
+                <input name="ap_paterno" onChange={this.handleChange} pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"/>
                 {errors.ap_paterno && <p>{errors.ap_paterno}</p>}
                 <br/>
                 <label>Apellido Materno:</label>
-                <input name="ap_materno"onChange={this.handleChange}/>
+                <input name="ap_materno"onChange={this.handleChange} pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"/>
                 {errors.ap_materno && <p>{errors.ap_materno}</p>}
                 <br/>
                 <label>Email:</label>
-                <input type="email" name="correo"onChange={this.handleChange}/>
+                <input type="email" name="correo"onChange={this.handleChange} pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"/>
                 {errors.correo && <p>{errors.correo}</p>}
                 <br/>
                 <input type="submit" value="Ingresar"/>
             </form>
+            
         )
+
+        
+
     }
 }

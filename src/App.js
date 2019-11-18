@@ -2,41 +2,55 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import CabeceraInicio from './components/CabeceraInicio'
 import ClienteForm from './components/ClienteForm'
-import ListEntradas from './components/ListEntradas'
-import ListFondos from "./components/ListFondos"
-import ListPostres from './components/ListPostres'
-import ListAgregados from './components/ListAgregados'
-import ListEnsaladas from './components/ListEnsaladas'
-import ListSopas from './components/ListSopas'
-import ListCervezas from './components/ListCervezas'
-import ListBebestibles from './components/ListBebestibles'
-import ListAperitivos from './components/ListAperitivos'
-import logo from './logo.svg';
+import ListPlato from './components/ListPlato'
 import './App.css';
+import ListPedidos from './components/ListPedidos'
+import NumeroMesa from './components/NumeroMesa'
+import { CarritoClassProvider } from './context/CarritoHandler'
 
 
 class App extends Component{
   state = {
     data: [],
+    ruta: 'listas',
+  }
+
+  changeRoute = route => {
+    this.setState({
+      ruta: route
+    })
   }
 
   registrarCliente = cliente =>{
+    console.log(cliente)
     axios.post('http://localhost:8083/sigloxxi/cliente', cliente)
     .then(({ data }) => {
-      const newData = this.state.data.concat(data)
+      const {data: currentData} = this.state;
+      const newData = {...currentData, data}
       this.setState({
         data: newData,
+        ruta: 'lista'
       })
+    }).catch(e => {
+      alert(JSON.stringify(e))
     })
   }
 
   render(){
-    console.log(this.state);
+
+    const { ruta } = this.state
     return (
       <div className="App">
-       <CabeceraInicio/> 
-        <ClienteForm handleSubmit={this.registrarCliente}/>
-        
+        <CabeceraInicio/> 
+        <CarritoClassProvider>
+          {ruta === 'usuario' && <ClienteForm handleSubmit={this.registrarCliente}/>}
+
+          {ruta === 'lista' && <ListPlato url ='Entradas'  />}
+
+          {ruta === 'listas' && <ListPedidos/>}
+
+          {ruta === 'mesas' && <NumeroMesa />}
+        </CarritoClassProvider>
       </div>
     );
   }
