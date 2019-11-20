@@ -7,7 +7,6 @@ export default class CabeceraInicio extends Component{
             <div> 
                 <h1>Bienvenido a Siglo XXI</h1>
             </div>
-           
         )
 
         

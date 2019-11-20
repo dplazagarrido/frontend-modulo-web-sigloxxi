@@ -2,6 +2,16 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { CarritoContext } from '../context/CarritoHandler'
 import { Button } from '@material-ui/core'
+import ClienteForm from './ClienteForm'
+import changeRoute from '../App'
+
+
+export const route = () =>{
+    return[{
+        route: "usuario"
+    }
+    ]
+}
 
 class NumeroMesa extends Component{
     constructor(props){
@@ -29,9 +39,23 @@ class NumeroMesa extends Component{
         )
     }
 
+    cambiarEstadoMesa(numero){
+        axios.post('http://localhost:8083/sigloxxi/mesa/d/'.concat(numero))
+        .then(
+            response => {
+                console.log(response);
+            }
+        )
+    }
+
     handleClickAsignar = id => {
         const {asignarMesa} = this.props;
         asignarMesa(id)
+    }
+
+    wrapperFunction = (numero) =>{
+        this.handleClickAsignar(numero);
+        this.cambiarEstadoMesa(numero);
     }
 
     render(){
@@ -51,7 +75,7 @@ class NumeroMesa extends Component{
                                     this.state.mesa.map(
                                         mesa =>
                                         <tr key={mesa.id_mesa}>
-                                            <td><Button onClick={() => this.handleClickAsignar(mesa.numero)}>Mesa {mesa.numero}</Button></td>
+                                            <td><Button onClick={() => this.wrapperFunction(mesa.numero)}>Mesa {mesa.numero}</Button></td>
                                         </tr>
                                     )
                                 }

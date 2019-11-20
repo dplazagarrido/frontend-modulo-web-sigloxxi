@@ -11,6 +11,7 @@ export class CarritoClassProvider extends Component {
         cantidadPlatos: 100,
         currentMesa: null,
         listaPlatos: [],
+        route: '',
     };
   }
 
@@ -37,6 +38,10 @@ export class CarritoClassProvider extends Component {
     }))
 }
 
+  cambiarRuta = (route) =>{
+    this.setState({route: 'hola'})
+  }
+
   render() {
     const { cantidadPlatos } = this.state;
     const { children } = this.props;
@@ -47,6 +52,7 @@ export class CarritoClassProvider extends Component {
             cantidadPlatos,
             agregarPlato: this.agregarPlato,
             asignarMesa: this.asignarMesa,
+            cambiarRuta: this.cambiarRuta,
         }}
       >
         {children}

@@ -48,7 +48,6 @@ class ListPlato extends Component{
                                     <th>Plato</th>
                                     <th>Descripcion</th>
                                     <th>Costo</th>
-                                    <th>{cantidadPlatos}</th>
                                 </tr>
                             </thead>
                             <tbody>

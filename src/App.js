@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Route } from 'react-router-dom'
 import CabeceraInicio from './components/CabeceraInicio'
 import ClienteForm from './components/ClienteForm'
 import ListPlato from './components/ListPlato'
@@ -7,17 +8,20 @@ import './App.css';
 import ListPedidos from './components/ListPedidos'
 import NumeroMesa from './components/NumeroMesa'
 import { CarritoClassProvider } from './context/CarritoHandler'
+import Pago from './components/Pago'
 
 
 class App extends Component{
   state = {
     data: [],
-    ruta: 'listas',
+    ruta: 'mesas',
+
   }
 
-  changeRoute = route => {
+
+  changeRoute = () => {
     this.setState({
-      ruta: route
+      ruta: 'usuario'
     })
   }
 
@@ -43,13 +47,21 @@ class App extends Component{
       <div className="App">
         <CabeceraInicio/> 
         <CarritoClassProvider>
+
           {ruta === 'usuario' && <ClienteForm handleSubmit={this.registrarCliente}/>}
-
           {ruta === 'lista' && <ListPlato url ='Entradas'  />}
-
+          {ruta === 'lista' && <ListPlato url ='Platos de fondo'  />}
+          {ruta === 'lista' && <ListPlato url ='Agregados'  />}
+          {ruta === 'lista' && <ListPlato url ='Ensaladas'  />}
+          {ruta === 'lista' && <ListPlato url ='Sopas'  />}
+          {ruta === 'lista' && <ListPlato url ='Aperitivos'  />}
+          {ruta === 'lista' && <ListPlato url ='Bebestibles'  />}
+          {ruta === 'lista' && <ListPlato url ='Cervezas'  />}
+          {ruta === 'lista' && <ListPlato url ='Postre'  />}
           {ruta === 'listas' && <ListPedidos/>}
+          {ruta=== 'mesas' && <NumeroMesa/>}
+          {ruta === 'pago' && <Pago/>}
 
-          {ruta === 'mesas' && <NumeroMesa />}
         </CarritoClassProvider>
       </div>
     );
