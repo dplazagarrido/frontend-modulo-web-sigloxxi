@@ -11,6 +11,7 @@ class Pago extends Component{
             metodoPago: [],
             metodoPagoSeleccionado: '',
             message: null,
+            pedidos:{}
         }
         this.metodoPago = this.metodoPago.bind(this)
     }
@@ -30,7 +31,7 @@ class Pago extends Component{
     }
 
     render(){
-        console.log(this.state.metodoPago)
+        console.log(this.state.listaPlatos)
         return(
             <div>
                 <label>Escoga un metodo de pago:</label>
@@ -48,19 +49,29 @@ class Pago extends Component{
                 }
 
                 </select>
+            
+            
             </div>
         )
     }
 }
 
 const withContext = props => (
-    <CarritoContext.Consumer>{({cantidadPlatos, agregarPlato})=> (
+
+    <CarritoContext.Consumer>{({cantidadPlatos, agregarPlato, listaPlatos})=> (
+        <>   
+            
             <Pago
+            {...listaPlatos}
             {...props}
             cantidadPlatos={cantidadPlatos}
             agregarPlato={agregarPlato}
-        />
+            
+            />
+        </>
     )}</CarritoContext.Consumer>
-    )
+
+)
+
     
 export default withContext;

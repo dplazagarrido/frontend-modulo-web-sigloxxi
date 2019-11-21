@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { setItem, getItem } from '../utils/localStorage';
+import { setItem, getItem  } from '../utils/localStorage';
+import { setSessionItem, getSessionItem} from '../utils/sessionStorage'
 
 export const CarritoContext = React.createContext();
 
@@ -8,18 +9,24 @@ export class CarritoClassProvider extends Component {
     super(props);
 
     this.state = {
-        cantidadPlatos: 100,
+        cantidadPlatos: 0,
         currentMesa: null,
         listaPlatos: [],
-        route: '',
+        ruta: 'mesas',
     };
   }
 
   componentDidMount(){
+    const currentPedido = getSessionItem('CURRENT_PEDIDO');
+      this.setState({
+        listaPlatos: currentPedido
+      })
+      
       const currentTableId = getItem('CURRENT_TABLE');
       this.setState({
           currentMesa: currentTableId,
       })
+      
   }
 
   asignarMesa = (idMesa) => {
@@ -36,23 +43,28 @@ export class CarritoClassProvider extends Component {
         listaPlatos: newListPlatos,
         cantidadPlatos: prevState.cantidadPlatos + 1,
     }))
+    setSessionItem('CURRENT_PEDIDO', listaPlatos)
 }
 
-  cambiarRuta = (route) =>{
-    this.setState({route: 'hola'})
-  }
+changeRoute = (route) => {
+  this.setState({
+    ruta: route
+  })
+}
 
   render() {
     const { cantidadPlatos } = this.state;
+    const { listaPlatos } = this.state;
     const { children } = this.props;
     console.log(this.state);
     return (
       <CarritoContext.Provider
         value={{
+            listaPlatos,
             cantidadPlatos,
             agregarPlato: this.agregarPlato,
             asignarMesa: this.asignarMesa,
-            cambiarRuta: this.cambiarRuta,
+            changeRoute: this.changeRoute,
         }}
       >
         {children}

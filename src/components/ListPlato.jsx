@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import { CarritoContext } from '../context/CarritoHandler'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 class ListPlato extends Component{
     
@@ -34,6 +40,11 @@ class ListPlato extends Component{
         console.log(plato)
         agregarPlato(plato);
     }
+
+    onChangeRoute = (route) =>{
+        const {changeRoute} = this.props;
+        changeRoute(route);
+    }
     
     render(){
         const {cantidadPlatos, url } = this.props;
@@ -41,53 +52,43 @@ class ListPlato extends Component{
         return(
             <div className="container">
                 <h2>{url}</h2>
-                    <div className='container'>
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Plato</th>
-                                    <th>Descripcion</th>
-                                    <th>Costo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    platos.map(plato => {
-                                        const {
-                                            id_plato,
-                                            nombre,
-                                            descripcion,
-                                            costo
-                                        } = plato;
-                                        return (
-                                        <tr key={id_plato}>
-                                            <td>{nombre}</td>
-                                            <td>{descripcion}</td>
-                                            <td>{costo}</td>
-                                            <td>
-                                                <Button
-                                                    color="primary"
-                                                    onClick={()=> this.onSavePlato(plato)}
-                                                >
-                                                    Agregar
-                                                </Button>
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-            </div>
+                <Paper>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="center" >Plato</TableCell>
+                                <TableCell align="center">Descripcion</TableCell>
+                                <TableCell align="center">Costo</TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {platos.map(plato => (
+                        <TableRow key={plato.id}>
+                            <TableCell align="center">{plato.nombre}</TableCell>
+                            <TableCell align="center">{plato.descripcion}</TableCell>
+                            <TableCell align="center">{plato.costo}</TableCell>
+                            <TableCell align="center"> 
+                                <Button color="primary"
+                                        onClick={()=> this.onSavePlato(plato)}
+                                >
+                                Agregar
+                                </Button>
+                            </TableCell>
+                        </TableRow>   
+                        ))}
+
+                        </TableBody>
+                    </Table>
+                </Paper>
+                <Button >Volver</Button>               
+            </div>        
         )
     }
 }
 
 const withContext = props => (
-<CarritoContext.Consumer>{({cantidadPlatos, agregarPlato})=> (
+<CarritoContext.Consumer>{({cantidadPlatos, agregarPlato, route, changeRoute})=> (
         <ListPlato
         {...props}
         cantidadPlatos={cantidadPlatos}

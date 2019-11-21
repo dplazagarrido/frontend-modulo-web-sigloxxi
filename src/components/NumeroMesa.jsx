@@ -75,7 +75,7 @@ class NumeroMesa extends Component{
                                     this.state.mesa.map(
                                         mesa =>
                                         <tr key={mesa.id_mesa}>
-                                            <td><Button onClick={() => this.wrapperFunction(mesa.numero)}>Mesa {mesa.numero}</Button></td>
+                                            <td><Button href="/cliente" onClick={() => this.wrapperFunction(mesa.numero)}>Mesa {mesa.numero}</Button></td>
                                         </tr>
                                     )
                                 }

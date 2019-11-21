@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Button } from '@material-ui/core'
+
 
 const validate = values => {
     const errors =  {}
@@ -45,7 +47,7 @@ export default class ClienteForm extends Component{
     render(){
         const{ errors } = this.state
         return(
-            <form onSubmit={this.handleSubmit}>
+            <form>
                 <label>Nombre:</label>
                 <input name="nombre" onChange={this.handleChange} pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"/>
                 {errors.nombre && <p>{errors.nombre}</p>}
@@ -59,10 +61,11 @@ export default class ClienteForm extends Component{
                 {errors.ap_materno && <p>{errors.ap_materno}</p>}
                 <br/>
                 <label>Email:</label>
-                <input type="email" name="correo"onChange={this.handleChange} pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"/>
+                <input type="email" name="correo"onChange={this.handleChange} pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð@ ,.'-]{2,64}"/>
                 {errors.correo && <p>{errors.correo}</p>}
                 <br/>
-                <input type="submit" value="Ingresar"/>
+                <Button href="/menu" onSubmit={this.handleSubmit}>Ingresar</Button>
+
             </form>
             
         )
